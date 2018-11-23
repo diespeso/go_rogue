@@ -9,6 +9,7 @@ var GPlayer *Player
 var GLivings []Living = make([]Living, 20)
 var GLivingsCounter int = 0
 
+//Re-places every Living in the Livings arrays, to its current position. Also the Player.
 func GUpdate() {
 	GBoard.SetCell(GPlayer.GetPosition().X, GPlayer.GetPosition().Y, GPlayer)
 	if GPlayer.GetIsDead() {
@@ -32,6 +33,8 @@ func GShowLivings() {
 	
 }
 
+//Adss a Living to the Livings array and sets the living's cell under. If the Livings array is full the
+//program panics. This function also augments the GLivingsCounter.
 func GAddLiving(living Living) {
 	//When adding a living, it should take the cell that
 	//was on the board before it came and use it as
@@ -44,6 +47,8 @@ func GAddLiving(living Living) {
 	GLivingsCounter++
 }
 
+//Kills the living, and now the entity on the Cell is the Cell under the Living.
+//Also nilifies the given Living, thus killing it.
 func GKillLiving(living Living) {
 	for i := 0; i < GLivingsCounter; i++ {
 		if(GLivings[i] != nil) {
@@ -57,11 +62,12 @@ func GKillLiving(living Living) {
 	}
 }
 
+//Changes the GState and closes the game showing the exit message.
 func CloseGame() {
 	GState = ENDED
 	if GPlayer.GetIsDead() {
 		fmt.Println("The player died")
 	} else {
-		fmt.Println("You exxited the game, hun")
+		fmt.Println("You exitted the game, hun")
 	}
 }
