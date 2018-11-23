@@ -121,6 +121,7 @@ func (l *LivingData) SetCanMove(canMove bool) {
 	l.canMove = canMove
 }
 
+//First checks de future position called "nextPosition".
 func (l *LivingData) Move(direction Direction) {
 	nextPosition := l.GetPosition()
 	l.SetDirection(direction)
@@ -143,6 +144,9 @@ func (l *LivingData) Move(direction Direction) {
 		}
 	}
 
+	//When the Living moves, the cell that was under that Entity is colocated on the Board, so the 
+	//"renderer" (which doesn't really exists) can render it instead of the Entity that was on top
+	//on said Entity.
 	if GBoard.GetCellFromPos(nextPosition).CanEnter(l) && l.GetCanMove() {
 		GBoard.SetCellFromPos(l.GetPosition(), l.GetCellUnder())
 		l.SetCellUnder(GBoard.GetCellFromPos(nextPosition))
